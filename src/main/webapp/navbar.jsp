@@ -1,4 +1,3 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <script src="https://cdn.tailwindcss.com"></script>
 
 <nav class="bg-white shadow-lg">
@@ -16,6 +15,7 @@
             <div class="hidden md:flex items-center space-x-6">
                 <a href="index.jsp" class="text-gray-700 hover:text-blue-600">Home</a>
                 <a href="about.jsp" class="text-gray-700 hover:text-blue-600">About Us</a>
+                <a href="login.jsp" class="text-gray-700 hover:text-blue-600">Login</a>
             </div>
         </div>
     </div>

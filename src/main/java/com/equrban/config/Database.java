@@ -1,4 +1,4 @@
-package com.equban.config;
+package com.equrban.config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

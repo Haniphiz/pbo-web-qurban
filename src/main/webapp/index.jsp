@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="navbar.jsp"%>
-<%@ page import="com.equban.config.Database" %>
+<%@ page import="com.equrban.config.Database" %>
 
 <div class="bg-gray-100 min-h-screen flex items-center justify-center">
     <div class="text-center p-10">
