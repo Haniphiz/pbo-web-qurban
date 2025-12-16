@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ include file="navbar.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,12 +17,12 @@
 
     <form action="LoginServlet" method="post" class="space-y-4">
         <div>
-            <label class="block font-medium">Email</label>
+            <label>Email</label>
             <input type="email" name="email" required class="w-full border p-2 rounded">
         </div>
 
         <div>
-            <label class="block font-medium">Password</label>
+            <label>Password</label>
             <input type="password" name="password" required class="w-full border p-2 rounded">
         </div>
 
@@ -31,9 +32,14 @@
         </button>
     </form>
 
-    <!-- Tombol Daftar -->
+    <!-- LINK REGISTER -->
     <div class="text-right mt-4">
-         <a href="register.jsp" class="text-blue-600 hover:underline font-normal"<span>Belum punya akun? DAFTAR</span>
+        <span class="text-sm text-gray-600">Belum punya akun?</span>
+        <a href="register.jsp" class="text-sm text-blue-600 hover:underline font-semibold">
+            Daftar
+        </a>
+    </div>
+</div>
 
-      
-       
+</body>
+</html>

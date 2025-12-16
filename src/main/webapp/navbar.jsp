@@ -1,22 +1,61 @@
+<%@ page import="com.equrban.model.User" %>
 <script src="https://cdn.tailwindcss.com"></script>
+
+<%
+    User user = (User) session.getAttribute("user");
+%>
 
 <nav class="bg-white shadow-lg">
     <div class="max-w-7xl mx-auto px-4">
-        <div class="flex justify-between">
-            
-            <!-- Logo -->
-            <div class="flex space-x-4">
-                <a href="index.jsp" class="flex items-center py-5 px-2">
-                    <span class="text-2xl font-bold text-blue-600">e-Qurban</span>
-                </a>
-            </div>
+        <div class="flex justify-between items-center h-16">
 
-            <!-- Menu -->
-            <div class="hidden md:flex items-center space-x-6">
+            <!-- Logo -->
+            <a href="<%= request.getContextPath() %>/index.jsp"
+               class="text-2xl font-bold text-blue-600">
+                e-Qurban
+            </a>
+
+            <!-- Menu tengah -->
+            <div class="hidden md:flex space-x-6">
                 <a href="index.jsp" class="text-gray-700 hover:text-blue-600">Home</a>
                 <a href="about.jsp" class="text-gray-700 hover:text-blue-600">About Us</a>
-                <a href="login.jsp" class="text-gray-700 hover:text-blue-600">Login</a>
+
+                <% if (user != null) { %>
+                    <% if ("admin".equals(user.getRole())) { %>
+                        <a href="admin/dashboard.jsp"
+                           class="text-gray-700 hover:text-blue-600">
+                            Dashboard Admin
+                        </a>
+                    <% } else { %>
+                        <a href="user/dashboard.jsp"
+                           class="text-gray-700 hover:text-blue-600">
+                            Dashboard
+                        </a>
+                    <% } %>
+                <% } %>
             </div>
+
+            <!-- Menu kanan -->
+            <div class="flex items-center space-x-4">
+                <% if (user == null) { %>
+                    <a href="login.jsp" class="text-gray-700 hover:text-blue-600">
+                        Login
+                    </a>
+                    <a href="register.jsp"
+                       class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                        Daftar
+                    </a>
+                <% } else { %>
+                    <span class="text-gray-700">
+                        Halo, <b><%= user.getName() %></b>
+                    </span>
+                    <a href="<%= request.getContextPath() %>/LogoutServlet"
+                       class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                        Logout
+                    </a>
+                <% } %>
+            </div>
+
         </div>
     </div>
 </nav>
