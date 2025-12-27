@@ -5,6 +5,7 @@ import com.equrban.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class UserDAO {
 
@@ -55,5 +56,70 @@ public class UserDAO {
     }
     return null; // user tidak ditemukan
 }
+ // Ambil alamat default user
+    public String getDefaultAddress(int userId) {
+        String sql = "SELECT address FROM user_address WHERE user_id = ? AND is_default = TRUE LIMIT 1";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("address");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // Update atau insert alamat default
+    public void updateAddress(int userId, String address) {
+        String checkSql = "SELECT * FROM user_address WHERE user_id = ? AND is_default = TRUE";
+        String insertSql = "INSERT INTO user_address(user_id, address, is_default) VALUES (?, ?, TRUE)";
+        String updateSql = "UPDATE user_address SET address = ? WHERE user_id = ? AND is_default = TRUE";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+
+            checkStmt.setInt(1, userId);
+            ResultSet rs = checkStmt.executeQuery();
+
+            if (rs.next()) {
+                try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
+                    updateStmt.setString(1, address);
+                    updateStmt.setInt(2, userId);
+                    updateStmt.executeUpdate();
+                }
+            } else {
+                try (PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
+                    insertStmt.setInt(1, userId);
+                    insertStmt.setString(2, address);
+                    insertStmt.executeUpdate();
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public boolean updateProfile(User user) {
+    String sql = "UPDATE users SET name = ?, phone = ? WHERE user_id = ?";
+
+    try (Connection conn = Database.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        ps.setString(1, user.getName());
+        ps.setString(2, user.getPhone());
+        ps.setInt(3, user.getUser_id());
+
+        return ps.executeUpdate() > 0;
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+
 
 }

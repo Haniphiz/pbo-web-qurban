@@ -9,6 +9,9 @@ public class User {
     private String role;
     private String created_at;
 
+    // Tambahkan field baru untuk alamat default
+    private String address;
+
     public User() {
         // default constructor
     }
@@ -77,5 +80,14 @@ public class User {
 
     public void setCreated_at(String created_at) {
         this.created_at = created_at;
+    }
+
+    // === ADDRESSES ===
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

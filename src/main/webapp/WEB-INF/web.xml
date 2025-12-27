@@ -34,7 +34,25 @@
         <url-pattern>/LogoutServlet</url-pattern>
     </servlet-mapping>
 
+<servlet>
+    <servlet-name>UserDashboardServlet</servlet-name>
+    <servlet-class>com.equrban.controllers.UserDashboardServlet</servlet-class>
+</servlet>
+        
+<servlet-mapping>
+    <servlet-name>UserDashboardServlet</servlet-name>
+    <url-pattern>/user/dashboard</url-pattern>
+</servlet-mapping>
 
+<servlet>
+    <servlet-name>UpdateAddressServlet</servlet-name>
+    <servlet-class>com.equrban.controllers.UpdateAddressServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>UpdateAddressServlet</servlet-name>
+    <url-pattern>/updateAddress</url-pattern>
+</servlet-mapping>
 
 <!-- Auth Filter -->
 <filter>
@@ -57,6 +75,48 @@
     <filter-name>AdminFilter</filter-name>
     <url-pattern>/admin/*</url-pattern>
 </filter-mapping>
+
+<servlet>
+    <servlet-name>PaymentServlet</servlet-name>
+    <servlet-class>com.equrban.controllers.PaymentServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>PaymentServlet</servlet-name>
+    <url-pattern>/payment</url-pattern>
+</servlet-mapping>
+
+<servlet>
+    <servlet-name>UpdateProfileServlet</servlet-name>
+    <servlet-class>com.equrban.controllers.UpdateProfileServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>UpdateProfileServlet</servlet-name>
+    <url-pattern>/updateProfile</url-pattern>
+</servlet-mapping>
+
+<!-- ================= EDIT PROFILE ================= -->
+<servlet>
+    <servlet-name>EditProfileServlet</servlet-name>
+    <servlet-class>com.equrban.controllers.EditProfileServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>EditProfileServlet</servlet-name>
+    <url-pattern>/editProfile</url-pattern>
+</servlet-mapping>
+
+<!-- ================= EDIT ADDRESS ================= -->
+<servlet>
+    <servlet-name>EditAddressServlet</servlet-name>
+    <servlet-class>com.equrban.controllers.EditAddressServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>EditAddressServlet</servlet-name>
+    <url-pattern>/editAddress</url-pattern>
+</servlet-mapping>
 
     <session-config>
         <session-timeout>

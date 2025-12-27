@@ -1,33 +1,94 @@
 <%@ page import="com.equrban.model.User" %>
-<%
-    User user = (User) session.getAttribute("user");
+<%@ page import="com.equrban.models.Delivery" %>
+<%@ page import="java.util.List" %>
 
-    if (user == null || !"admin".equals(user.getRole())) {
-        response.sendRedirect("../login.jsp");
-        return;
-    }
+<script src="https://cdn.tailwindcss.com"></script>
+
+<%
+    User user = (User) request.getAttribute("userProfile");
+    List<Delivery> deliveries = (List<Delivery>) request.getAttribute("deliveries");
 %>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Admin Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100">
+<div class="max-w-7xl mx-auto p-6">
 
-<jsp:include page="../navbar.jsp" />
+    <!-- PROFIL USER -->
+    <div class="bg-white shadow rounded p-6 mb-6">
+        <h2 class="text-2xl font-bold mb-4">Profil Saya</h2>
+        <p><b>Nama:</b> <%= user.getName() %></p>
+        <p><b>Email:</b> <%= user.getEmail() %></p>
+        <p><b>Telepon:</b> <%= user.getPhone() %></p>
+        <p><b>Role:</b> <%= user.getRole() %></p>
+        <p><b>Tanggal Daftar:</b> <%= user.getCreated_at() %></p>
+    </div>
 
-<div class="max-w-4xl mx-auto mt-10 bg-white p-6 rounded shadow">
-    <h1 class="text-2xl font-bold mb-4">Dashboard Admin</h1>
-    <p>Halo, <b><%= user.getName() %></b></p>
+    <!-- DELIVERY LIST -->
+    <div class="bg-white shadow rounded p-6">
+        <h2 class="text-2xl font-bold mb-4">Jadwal Pengiriman</h2>
 
-    <ul class="mt-4 list-disc ml-6">
-        <li>Kelola User</li>
-        <li>Kelola Data Qurban</li>
-        <li>Laporan Transaksi</li>
-    </ul>
+        <%
+            if (deliveries == null || deliveries.isEmpty()) {
+        %>
+            <p>Belum ada jadwal pengiriman.</p>
+        <%
+            } else {
+        %>
+            <table class="min-w-full table-auto border-collapse border border-gray-200">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="border px-4 py-2">Order ID</th>
+                        <th class="border px-4 py-2">Tanggal</th>
+                        <th class="border px-4 py-2">Alamat</th>
+                        <th class="border px-4 py-2">Driver</th>
+                        <th class="border px-4 py-2">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                        for (Delivery d : deliveries) {
+                    %>
+                        <tr>
+                            <td class="border px-4 py-2"><%= d.getOrderId() %></td>
+                            <td class="border px-4 py-2"><%= d.getDeliveryDate() %></td>
+                            <td class="border px-4 py-2"><%= d.getAddress() %></td>
+                            <td class="border px-4 py-2">
+                                <%
+                                    String driver = d.getDriverName();
+                                    if (driver == null || driver.isEmpty()) {
+                                        out.print("-");
+                                    } else {
+                                        out.print(driver);
+                                    }
+                                %>
+                            </td>
+                            <td class="border px-4 py-2">
+                                <%
+                                    String status = d.getStatus();
+                                    if ("pending".equals(status)) {
+                                %>
+                                    <span class="text-orange-500 font-bold">Menunggu</span>
+                                <%
+                                    } else if ("scheduled".equals(status)) {
+                                %>
+                                    <span class="text-blue-500 font-bold">Dijadwalkan</span>
+                                <%
+                                    } else if ("delivered".equals(status)) {
+                                %>
+                                    <span class="text-green-500 font-bold">Terkirim</span>
+                                <%
+                                    } else {
+                                        out.print(status);
+                                    }
+                                %>
+                            </td>
+                        </tr>
+                    <%
+                        }
+                    %>
+                </tbody>
+            </table>
+        <%
+            }
+        %>
+    </div>
+
 </div>
-
-</body>
-</html>
