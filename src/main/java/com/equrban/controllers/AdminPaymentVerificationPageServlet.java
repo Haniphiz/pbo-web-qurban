@@ -1,7 +1,7 @@
 package com.equrban.controllers;
 
 import com.equrban.dao.PaymentDAO;
-import com.equrban.model.User;
+import com.equrban.models.User;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,24 +15,22 @@ public class AdminPaymentVerificationPageServlet extends HttpServlet {
     private final PaymentDAO paymentDAO = new PaymentDAO();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+ protected void doGet(HttpServletRequest request, HttpServletResponse response)
+         throws ServletException, IOException {
 
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("user") == null ||
-            !"admin".equals(((User) session.getAttribute("user")).getRole())) {
+     response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+     response.setHeader("Pragma", "no-cache");
 
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
-            return;
-        }
+     HttpSession session = request.getSession(false);
+     if (session == null || session.getAttribute("user") == null ||
+         !"admin".equals(((User) session.getAttribute("user")).getRole())) {
 
-        request.setAttribute(
-            "payments",
-            paymentDAO.getWaitingPayments()
-        );
+         response.sendRedirect(request.getContextPath() + "/login.jsp");
+         return;
+     }
 
-        request.getRequestDispatcher(
-            "/admin/payment_verification.jsp"
-        ).forward(request, response);
+     request.setAttribute("payments", paymentDAO.getWaitingPayments());
+     request.getRequestDispatcher("/admin/payment_verification.jsp")
+            .forward(request, response);
     }
 }

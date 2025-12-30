@@ -17,8 +17,9 @@ public class OrderDAO {
     // =========================
     public int createOrder(int userId, double totalAmount) {
 
-        String sql = "INSERT INTO orders (user_id, order_date, total_amount, status)"
-        + "VALUES (?, NOW(), ?, 'pending')";
+        String sql =
+            "INSERT INTO orders (user_id, order_date, total_amount, status) " +
+            "VALUES (?, NOW(), ?, 'pending')";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt =
@@ -38,46 +39,39 @@ public class OrderDAO {
         }
         return 0;
     }
-    
-    
-    
+
     // =========================
-// GET ORDER BY ID (PAYMENT)
-// =========================
-public Order getOrderById(int orderId) {
+    // GET ORDER BY ID (UNTUK CONFIRM)
+    // =========================
+    public Order getOrderById(int orderId) {
 
-    String sql =
-        "SELECT " +
-        "    o.order_id, " +
-        "    o.order_date, " +
-        "    o.total_amount, " +
-        "    o.status " +
-        "FROM orders o " +
-        "WHERE o.order_id = ?";
+        String sql =
+            "SELECT order_id, user_id, order_date, total_amount, status, is_confirmed " +
+            "FROM orders WHERE order_id = ?";
 
-    try (Connection conn = Database.getConnection();
-         PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        stmt.setInt(1, orderId);
-        ResultSet rs = stmt.executeQuery();
+            stmt.setInt(1, orderId);
+            ResultSet rs = stmt.executeQuery();
 
-        if (rs.next()) {
-            Order order = new Order();
-            order.setOrderId(rs.getInt("order_id"));
-            order.setOrderDate(rs.getTimestamp("order_date"));
-            order.setTotalAmount(rs.getDouble("total_amount"));
-            order.setStatus(rs.getString("status"));
+            if (rs.next()) {
+                Order order = new Order();
+                order.setOrderId(rs.getInt("order_id"));
+                order.setUserId(rs.getInt("user_id"));
+                order.setOrderDate(rs.getTimestamp("order_date"));
+                order.setTotalAmount(rs.getDouble("total_amount"));
+                order.setStatus(rs.getString("status"));
+                order.setConfirmed(rs.getBoolean("is_confirmed"));
+                return order;
+            }
 
-            return order;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-    } catch (Exception e) {
-        e.printStackTrace();
+        return null;
     }
-
-    return null;
-}
-
 
     // =========================
     // RIWAYAT ORDER USER
@@ -86,19 +80,25 @@ public Order getOrderById(int orderId) {
 
         List<Order> orders = new ArrayList<>();
 
-      String sql =
-        "SELECT " +
-        "    o.order_id, " +
-        "    o.order_date, " +
-        "    o.total_amount, " +
-        "    o.status, " +
-        "    a.name AS animal_name " +
-        "FROM orders o " +
-        "JOIN order_items oi ON o.order_id = oi.order_id " +
-        "JOIN animals a ON oi.animal_id = a.animal_id " +
-        "WHERE o.user_id = ? " +
-        "ORDER BY o.order_date DESC";
-
+        String sql =
+            "SELECT " +
+            " o.order_id, " +
+            " o.order_date, " +
+            " o.total_amount, " +
+            " o.status, " +
+            " o.is_confirmed, " +
+            " oi.animal_id, " +
+            " a.name AS animal_name, " +
+            " EXISTS ( " +
+            "   SELECT 1 FROM reviews r " +
+            "   WHERE r.user_id = o.user_id " +
+            "   AND r.animal_id = oi.animal_id " +
+            " ) AS has_review " +
+            "FROM orders o " +
+            "JOIN order_items oi ON o.order_id = oi.order_id " +
+            "JOIN animals a ON oi.animal_id = a.animal_id " +
+            "WHERE o.user_id = ? " +
+            "ORDER BY o.order_date DESC";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -112,7 +112,10 @@ public Order getOrderById(int orderId) {
                 order.setOrderDate(rs.getTimestamp("order_date"));
                 order.setTotalAmount(rs.getDouble("total_amount"));
                 order.setStatus(rs.getString("status"));
+                order.setAnimalId(rs.getInt("animal_id"));
                 order.setAnimalName(rs.getString("animal_name"));
+                order.setConfirmed(rs.getBoolean("is_confirmed"));
+                order.setHasReview(rs.getBoolean("has_review"));
 
                 orders.add(order);
             }
@@ -125,7 +128,7 @@ public Order getOrderById(int orderId) {
     }
 
     // =========================
-    // UPDATE STATUS ORDER
+    // UPDATE STATUS ORDER (ADMIN)
     // =========================
     public void updateOrderStatus(int orderId, String status) {
 
@@ -136,6 +139,24 @@ public Order getOrderById(int orderId) {
 
             stmt.setString(1, status);
             stmt.setInt(2, orderId);
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // =========================
+    // KONFIRMASI PESANAN USER
+    // =========================
+    public void confirmOrder(int orderId) {
+
+        String sql = "UPDATE orders SET is_confirmed = TRUE WHERE order_id = ?";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, orderId);
             stmt.executeUpdate();
 
         } catch (Exception e) {

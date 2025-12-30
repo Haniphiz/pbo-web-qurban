@@ -1,7 +1,7 @@
 package com.equrban.controllers;
 
 import com.equrban.dao.OrderDAO;
-import com.equrban.model.User;
+import com.equrban.models.User;
 import com.equrban.models.Order;
 
 import jakarta.servlet.RequestDispatcher;

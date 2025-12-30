@@ -1,4 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="com.equrban.models.Order" %>
 
 <!DOCTYPE html>
@@ -9,7 +8,10 @@
 </head>
 <body class="bg-gray-100">
 
-<jsp:include page="../navbar.jsp" />
+
+<%@ include file="/layout/head.jsp" %>
+
+<jsp:include page="/components/navbar.jsp" />
 
 <%
     Order order = (Order) request.getAttribute("order");

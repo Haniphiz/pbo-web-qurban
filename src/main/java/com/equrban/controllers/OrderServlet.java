@@ -4,7 +4,7 @@ import com.equrban.dao.AnimalDAO;
 import com.equrban.dao.DeliveryDAO;
 import com.equrban.dao.OrderDAO;
 import com.equrban.dao.OrderItemDAO;
-import com.equrban.model.User;
+import com.equrban.models.User;
 import com.equrban.models.Animal;
 
 import jakarta.servlet.ServletException;
@@ -83,11 +83,16 @@ public class OrderServlet extends HttpServlet {
         }
 
         String address = request.getParameter("address");
+        String province = request.getParameter("province");
+        String city = request.getParameter("city");
+        String district = request.getParameter("district");
+        String postalCode = request.getParameter("postal_code");
+
         java.sql.Date deliveryDate =
         java.sql.Date.valueOf(request.getParameter("delivery_date"));
 
 
-        if (address == null || deliveryDate == null) {
+        if (address == null || province == null || city == null || district == null || postalCode == null || deliveryDate == null) {
             throw new ServletException("Data pengiriman tidak lengkap");
         }
 
@@ -112,7 +117,16 @@ public class OrderServlet extends HttpServlet {
         );
 
         // 3️⃣ INSERT DELIVERY
-        deliveryDAO.createDelivery(orderId, address, deliveryDate);
+        deliveryDAO.createDelivery(
+                orderId,
+                address,
+                province,
+                city,
+                district,
+                postalCode,
+                deliveryDate
+            );
+
 
         // 4️⃣ REDIRECT KE RIWAYAT
         response.sendRedirect(request.getContextPath() +  "/payment-page?orderId=" + orderId);

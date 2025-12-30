@@ -1,7 +1,7 @@
 package com.equrban.controllers;
 
 import com.equrban.dao.UserDAO;
-import com.equrban.model.User;
+import com.equrban.models.User;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;

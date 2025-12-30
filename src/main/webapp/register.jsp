@@ -1,5 +1,9 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ include file="navbar.jsp" %>
+
+<%@ include file="/layout/head.jsp" %>
+
+<jsp:include page="/components/navbar.jsp" />
+
+
 
 <div class="max-w-md mx-auto mt-10 p-6 shadow-lg bg-white rounded">
     <h2 class="text-2xl font-bold mb-4 text-center">Daftar Akun</h2>

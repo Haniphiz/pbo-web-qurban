@@ -1,4 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.equrban.models.Payment" %>
 
@@ -11,8 +10,12 @@
 
 <body class="bg-gray-100">
 
-<jsp:include page="../navbar.jsp" />
 
+<%@ include file="/layout/head.jsp" %>
+
+<jsp:include page="/components/navbar.jsp" />
+
+    
 <div class="max-w-5xl mx-auto mt-10 bg-white p-6 rounded shadow">
 
     <h1 class="text-2xl font-bold mb-6">Verifikasi Pembayaran</h1>

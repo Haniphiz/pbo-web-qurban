@@ -10,6 +10,38 @@ public class Order {
     private double totalAmount;
     private String status;
     private String notes;
+    private int animalId;
+    private boolean hasReview;
+    
+    private boolean confirmed;
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
+    }
+
+
+    public int getAnimalId() {
+        return animalId;
+    }
+
+    public void setAnimalId(int animalId) {
+        this.animalId = animalId;
+    }
+
+    public boolean isHasReview() {
+        return hasReview;
+    }
+
+    public void setHasReview(boolean hasReview) {
+        this.hasReview = hasReview;
+    }
+
+  
+
 
     // TAMBAHAN
     private String animalName;

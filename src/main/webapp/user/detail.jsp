@@ -1,6 +1,9 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.equrban.models.Animal" %>
-<jsp:include page="../navbar.jsp" />
+
+<%@ include file="/layout/head.jsp" %>
+
+<jsp:include page="/components/navbar.jsp" />
+
 <html>
 <head>
     <title>Detail Hewan Qurban</title>

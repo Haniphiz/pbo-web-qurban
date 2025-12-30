@@ -24,13 +24,23 @@ public class UpdateAddressServlet extends HttpServlet {
         }
 
         String address = request.getParameter("address");
-        int userId = ((com.equrban.model.User) session.getAttribute("user")).getUser_id();
+        String province = request.getParameter("province");
+        String city = request.getParameter("city");
+        String district = request.getParameter("district");
+        String postalCode = request.getParameter("postal_code");
 
-        userDAO.updateAddress(userId, address);
+        int userId = ((com.equrban.models.User) session.getAttribute("user")).getUser_id();
+
+        userDAO.updateAddress(userId, address, province, city, district, postalCode);
+
 
         // Update session user
-        com.equrban.model.User user = (com.equrban.model.User) session.getAttribute("user");
+        com.equrban.models.User user = (com.equrban.models.User) session.getAttribute("user");
         user.setAddress(address);
+        user.setProvince(province);
+        user.setCity(city);
+        user.setDistrict(district);
+        user.setPostalCode(postalCode);
         session.setAttribute("user", user);
 
         response.sendRedirect(request.getContextPath() + "/user/dashboard");

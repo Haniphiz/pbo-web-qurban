@@ -24,7 +24,7 @@ public class AdminPaymentVerificationServlet extends HttpServlet {
        if ("approve".equals(action)) {
 
         // 1. Approve payment yang dipilih
-        paymentDAO.updatePaymentStatus(paymentId, "verified");
+        paymentDAO.updatePaymentStatus(paymentId, "paid");
 
         // 2. Update order
         orderDAO.updateOrderStatus(orderId, "paid");
@@ -36,7 +36,7 @@ public class AdminPaymentVerificationServlet extends HttpServlet {
             paymentDAO.updatePaymentStatus(paymentId, "rejected");
 
             // opsional: order tetap pending atau cancelled
-            orderDAO.updateOrderStatus(orderId, "pending");
+            orderDAO.updateOrderStatus(orderId, "rejected");
         }
 
         response.sendRedirect(

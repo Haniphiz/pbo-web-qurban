@@ -1,6 +1,6 @@
 package com.equrban.controllers;
 
-import com.equrban.model.User;
+import com.equrban.models.User;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import java.io.IOException;

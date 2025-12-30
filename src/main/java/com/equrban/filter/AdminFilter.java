@@ -3,7 +3,7 @@ package com.equrban.filter;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import java.io.IOException;
-import com.equrban.model.User;
+import com.equrban.models.User;
 
 public class AdminFilter implements Filter {
 

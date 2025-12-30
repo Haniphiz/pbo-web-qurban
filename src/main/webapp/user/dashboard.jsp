@@ -1,7 +1,6 @@
-<%@ page import="com.equrban.model.User" %>
+<%@ page import="com.equrban.models.User" %>
 <%@ page import="com.equrban.models.Delivery" %>
 <%@ page import="java.util.List" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
 
 <%
     User userProfile = (User) request.getAttribute("userProfile");
@@ -22,7 +21,11 @@
 <body class="bg-gray-100">
 
 <!-- Navbar -->
-<jsp:include page="../navbar.jsp" />
+
+<%@ include file="/layout/head.jsp" %>
+
+<jsp:include page="/components/navbar.jsp" />
+
 
 <div class="max-w-7xl mx-auto mt-10 p-6">
 

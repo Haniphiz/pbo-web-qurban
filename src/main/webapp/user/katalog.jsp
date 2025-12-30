@@ -1,4 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List, com.equrban.models.Animal" %>
 
 <!DOCTYPE html>
@@ -9,7 +8,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-    <jsp:include page="/navbar.jsp" />
+<%@ include file="/layout/head.jsp" %>
+
+<jsp:include page="/components/navbar.jsp" />
 
 <body class="bg-gray-100">
 

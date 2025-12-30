@@ -1,4 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.equrban.models.Order" %>
 
@@ -13,7 +12,10 @@
 <body class="bg-gray-100 min-h-screen">
 
     <!-- Navbar -->
-    <jsp:include page="/navbar.jsp" />
+
+<%@ include file="/layout/head.jsp" %>
+
+<jsp:include page="/components/navbar.jsp" />
 
     <!-- Container -->
     <div class="max-w-5xl mx-auto mt-10 bg-white shadow rounded-lg p-6">
@@ -35,6 +37,7 @@
                         <th class="px-4 py-2 border text-left">Nama Hewan</th>
                         <th class="px-4 py-2 border text-left">Total</th>
                         <th class="px-4 py-2 border text-left">Status</th>
+                        <th class="px-4 py-2 border text-left">Aksi</th>
                         <th class="px-4 py-2 border text-left">Tanggal</th>
                     </tr>
                 </thead>
@@ -52,6 +55,28 @@
                                 <%= o.getStatus() %>
                             </span>
                         </td>
+                        <td class="px-4 py-2 border space-x-2">
+
+                        <% if ("paid".equals(o.getStatus())) { %>
+
+                         <% if (!o.isConfirmed()) { %>
+                             <a href="<%= request.getContextPath() %>/confirm-order?orderId=<%= o.getOrderId() %>"
+                                class="bg-green-600 text-white px-3 py-1 rounded">
+                                 Konfirmasi Pesanan
+                             </a>
+
+                         <% } else if (!o.isHasReview()) { %>
+                            <a href="<%= request.getContextPath() %>/review?animalId=<%= o.getAnimalId() %>">
+                                Berikan Ulasan</a>
+
+                         <% } %>
+
+                     <% } %>
+
+
+
+                        </td>
+
                         <td class="px-4 py-2 border"><%= o.getOrderDate() %></td>
                     </tr>
                     <% } %>

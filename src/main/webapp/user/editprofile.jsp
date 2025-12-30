@@ -1,5 +1,4 @@
-<%@ page import="com.equrban.model.User" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="com.equrban.models.User" %>
 
 <%
     User userProfile = (User) request.getAttribute("userProfile");
@@ -19,7 +18,9 @@
 </head>
 <body class="bg-gray-100">
 
-<jsp:include page="../navbar.jsp" />
+<%@ include file="/layout/head.jsp" %>
+
+<jsp:include page="/components/navbar.jsp" />
 
 <div class="max-w-xl mx-auto mt-10 bg-white shadow rounded p-6">
     <h2 class="text-2xl font-bold mb-6">Edit Profil</h2>

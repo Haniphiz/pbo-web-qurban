@@ -1,6 +1,7 @@
-package com.equrban.model;
-
+package com.equrban.models;
 public class User {
+
+    // ===== USER CORE =====
     private int user_id;
     private String name;
     private String email;
@@ -9,9 +10,14 @@ public class User {
     private String role;
     private String created_at;
 
-    // Tambahkan field baru untuk alamat default
+    // ===== DEFAULT ADDRESS =====
     private String address;
+    private String province;
+    private String city;
+    private String district;
+    private String postalCode;
 
+    // ===== CONSTRUCTOR =====
     public User() {
         // default constructor
     }
@@ -25,7 +31,7 @@ public class User {
         this.role = role;
     }
 
-    // GETTER & SETTER
+    // ===== GETTER & SETTER USER =====
     public int getUser_id() {
         return user_id;
     }
@@ -82,12 +88,44 @@ public class User {
         this.created_at = created_at;
     }
 
-    // === ADDRESSES ===
+    // ===== GETTER & SETTER ADDRESS =====
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 }

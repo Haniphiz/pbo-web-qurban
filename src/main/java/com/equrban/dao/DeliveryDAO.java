@@ -9,11 +9,15 @@ import java.util.List;
 
 public class DeliveryDAO {
 
+    // =====================================
+    // GET DELIVERY BY USER
+    // =====================================
     public List<Delivery> getDeliveriesByUser(int userId) {
         List<Delivery> list = new ArrayList<>();
 
         String sql =
             "SELECT d.delivery_id, d.delivery_date, d.address, " +
+            "d.province, d.city, d.district, d.postal_code, " +
             "d.driver_name, d.status, o.order_id " +
             "FROM delivery_schedule d " +
             "JOIN orders o ON d.order_id = o.order_id " +
@@ -32,6 +36,10 @@ public class DeliveryDAO {
                 d.setOrderId(rs.getInt("order_id"));
                 d.setDeliveryDate(rs.getDate("delivery_date"));
                 d.setAddress(rs.getString("address"));
+                d.setProvince(rs.getString("province"));
+                d.setCity(rs.getString("city"));
+                d.setDistrict(rs.getString("district"));
+                d.setPostalCode(rs.getString("postal_code"));
                 d.setDriverName(rs.getString("driver_name"));
                 d.setStatus(rs.getString("status"));
 
@@ -44,25 +52,40 @@ public class DeliveryDAO {
 
         return list;
     }
-public void createDelivery(int orderId, String address, Date deliveryDate) {
 
-    String sql =
-        "INSERT INTO delivery_schedule " +
-        "(order_id, address, delivery_date, status) " +
-        "VALUES (?, ?, ?, 'pending')";
+    // =====================================
+    // CREATE DELIVERY (INI YANG DIPAKAI ORDER SERVLET)
+    // =====================================
+    public void createDelivery(
+            int orderId,
+            String address,
+            String province,
+            String city,
+            String district,
+            String postalCode,
+            java.sql.Date deliveryDate
+    ) {
 
-    try (Connection conn = Database.getConnection();
-         PreparedStatement stmt = conn.prepareStatement(sql)) {
+        String sql =
+            "INSERT INTO delivery_schedule " +
+            "(order_id, address, province, city, district, postal_code, delivery_date, status) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, 'pending')";
 
-        stmt.setInt(1, orderId);
-        stmt.setString(2, address);
-        stmt.setDate(3, deliveryDate);
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        stmt.executeUpdate();
+            stmt.setInt(1, orderId);
+            stmt.setString(2, address);
+            stmt.setString(3, province);
+            stmt.setString(4, city);
+            stmt.setString(5, district);
+            stmt.setString(6, postalCode);
+            stmt.setDate(7, deliveryDate);
 
-    } catch (Exception e) {
-        e.printStackTrace();
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-}
-
 }
