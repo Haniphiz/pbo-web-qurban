@@ -182,4 +182,21 @@ public class OrderDAO {
         }
         return 0;
     }
+    
+    public int getAnimalIdByOrderId(int orderId) {
+    String sql = "SELECT animal_id FROM order_items WHERE order_id = ?";
+    try (Connection conn = Database.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setInt(1, orderId);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            return rs.getInt("animal_id");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return 0;
+}
+
 }
