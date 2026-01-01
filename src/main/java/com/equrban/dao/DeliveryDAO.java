@@ -15,17 +15,16 @@ public class DeliveryDAO {
     public List<Delivery> getDeliveriesByUser(int userId) {
         List<Delivery> list = new ArrayList<>();
 
-        String sql =
-            "SELECT d.delivery_id, d.delivery_date, d.address, " +
-            "d.province, d.city, d.district, d.postal_code, " +
-            "d.driver_name, d.status, o.order_id " +
-            "FROM delivery_schedule d " +
-            "JOIN orders o ON d.order_id = o.order_id " +
-            "WHERE o.user_id = ? " +
-            "ORDER BY d.delivery_date DESC";
+        String sql
+                = "SELECT d.delivery_id, d.delivery_date, d.address, "
+                + "d.province, d.city, d.district, d.postal_code, "
+                + "d.driver_name, d.status, o.order_id "
+                + "FROM delivery_schedule d "
+                + "JOIN orders o ON d.order_id = o.order_id "
+                + "WHERE o.user_id = ? "
+                + "ORDER BY d.delivery_date DESC";
 
-        try (Connection conn = Database.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Database.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
@@ -66,13 +65,12 @@ public class DeliveryDAO {
             java.sql.Date deliveryDate
     ) {
 
-        String sql =
-            "INSERT INTO delivery_schedule " +
-            "(order_id, address, province, city, district, postal_code, delivery_date, status) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, 'pending')";
+        String sql
+                = "INSERT INTO delivery_schedule "
+                + "(order_id, address, province, city, district, postal_code, delivery_date, status) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, 'scheduled')";
 
-        try (Connection conn = Database.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Database.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, orderId);
             stmt.setString(2, address);

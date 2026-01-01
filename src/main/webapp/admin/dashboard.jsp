@@ -55,11 +55,11 @@
             <p class="text-gray-600">Kelola pembayaran qurban</p>
         </a>
 
-        <a href="<%= request.getContextPath() %>/admin/orders"
-           class="bg-white shadow hover:shadow-lg transition rounded p-6 block">
-            <h3 class="text-lg font-bold mb-2">Data Pesanan</h3>
-            <p class="text-gray-600">Lihat semua pesanan</p>
-        </a>
+          <a href="<%= request.getContextPath() %>/admin/animal/add"
+             class="bg-white shadow hover:shadow-lg transition rounded p-6 block">
+              <h3 class="text-lg font-bold mb-2">Tambah Hewan</h3>
+              <p class="text-gray-600">Tambahkan hewan qurban ke katalog</p>
+          </a>
 
     </div>
 

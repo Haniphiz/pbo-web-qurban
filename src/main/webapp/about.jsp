@@ -1,5 +1,7 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ include file="/components/navbar.jsp" %>
+<%@ include file="/layout/head.jsp" %>
+
+<jsp:include page="/components/navbar.jsp" />
+
 <script src="https://cdn.tailwindcss.com"></script>
 
 <div class="bg-white py-16 px-6">

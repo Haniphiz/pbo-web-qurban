@@ -32,8 +32,8 @@
                 <ul class="space-y-4 text-gray-400 text-sm">
                     <li><a class="hover:text-primary transition-colors" href="#">Qurban Sapi</a></li>
                     <li><a class="hover:text-primary transition-colors" href="#">Qurban Kambing</a></li>
-                    <li><a class="hover:text-primary transition-colors" href="#">Sedekah Daging</a></li>
-                    <li><a class="hover:text-primary transition-colors" href="#">Tabungan Qurban</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="#">Qurban Domba</a></li>
+  
                 </ul>
             </div>
             <!-- Company -->

@@ -60,4 +60,31 @@ public class AnimalDAO {
         }
         return animal;
     }
+    
+    public boolean insertAnimal(Animal animal) {
+    String sql = "INSERT INTO animals " +
+                 "(category_id, name, age, weight, price, stock, description, photo, status) " +
+                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'available')";
+
+    try (Connection conn = Database.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setInt(1, animal.getCategory_id());
+        stmt.setInt(2, animal.getCategory_id()); // ❌ JANGAN SALAH URUT
+        stmt.setString(2, animal.getName());
+        stmt.setInt(3, animal.getAge());
+        stmt.setDouble(4, animal.getWeight());
+        stmt.setDouble(5, animal.getPrice());
+        stmt.setInt(6, animal.getStock());
+        stmt.setString(7, animal.getDescription());
+        stmt.setString(8, animal.getPhoto());   
+        
+        return stmt.executeUpdate() > 0;
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return false;
+}
+
 }

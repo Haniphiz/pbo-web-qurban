@@ -24,7 +24,7 @@ public class AdminPaymentVerificationServlet extends HttpServlet {
        if ("approve".equals(action)) {
 
         // 1. Approve payment yang dipilih
-        paymentDAO.updatePaymentStatus(paymentId, "paid");
+        paymentDAO.updatePaymentStatus(paymentId, "verified");
 
         // 2. Update order
         orderDAO.updateOrderStatus(orderId, "paid");

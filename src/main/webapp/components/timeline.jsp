@@ -4,8 +4,7 @@
         <ol class="space-y-6 text-gray-700">
             <li>1. Pilih hewan qurban</li>
             <li>2. Lakukan pembayaran</li>
-            <li>3. Proses penyembelihan</li>
-            <li>4. Distribusi daging</li>
+            <li>3. Proses pengantaran hewan</li>
         </ol>
     </div>
 </section>

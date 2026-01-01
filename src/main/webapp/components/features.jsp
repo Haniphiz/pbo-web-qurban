@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
 <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-6">
         <div class="grid md:grid-cols-3 gap-10 text-center">
