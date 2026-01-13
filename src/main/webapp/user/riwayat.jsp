@@ -66,7 +66,8 @@
                              </a>
 
                          <% } else if (!o.isHasReview()) { %>
-                            <a href="<%= request.getContextPath() %>/review?animalId=<%= o.getAnimalId() %>">
+                            <a href="<%= request.getContextPath() %>/review?animalId=<%= o.getAnimalId() %>"
+                                class="bg-primary text-white px-3 py-1 rounded">
                                 Berikan Ulasan</a>
 
                          <% } %>

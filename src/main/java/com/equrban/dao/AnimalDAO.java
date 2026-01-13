@@ -47,6 +47,8 @@ public class AnimalDAO {
                 animal = new Animal();
                 animal.setAnimal_id(rs.getInt("animal_id"));
                 animal.setName(rs.getString("name"));
+                animal.setAge(rs.getInt("age"));           // ✅ INI KUNCI
+                animal.setWeight(rs.getDouble("weight")); 
                 animal.setPrice(rs.getDouble("price"));
                 animal.setPhoto(rs.getString("photo"));
                 animal.setDescription(rs.getString("description"));

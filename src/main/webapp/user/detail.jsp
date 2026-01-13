@@ -13,7 +13,7 @@
         <%
             Animal animal = (Animal) request.getAttribute("animal");
         %>
-        <div class="w-full h-[470px] bg-gray-200 overflow-hidden">
+        <div class="w-full h-full bg-gray-200 overflow-hidden">
             <img
                 src="${pageContext.request.contextPath}/images/animals/<%= animal.getPhoto()%>"
                 alt="Foto <%= animal.getName()%>"
@@ -32,10 +32,6 @@
                 Rp <%= String.format("%,.0f", animal.getPrice())%>
             </p>
 
-            <p class="text-gray-700 leading-relaxed mb-6">
-                <%= animal.getDescription()%>
-            </p>
-
             <form action="${pageContext.request.contextPath}/order" method="get">
                 <input type="hidden" name="animalId" value="${animal.animal_id}">
                 <button type="submit" 
@@ -43,6 +39,26 @@
                     Beli Hewan Ini
                 </button>
             </form>
+            <div class="grid grid-cols-2 gap-4 mb-6 text-gray-700">
+                <div>
+                    <p class="text-sm text-gray-500">Umur</p>
+                    <p class="font-semibold">
+                        <%= animal.getAge()%> tahun
+                    </p>
+                </div>
+
+                <div>
+                    <p class="text-sm text-gray-500">Berat</p>
+                    <p class="font-semibold">
+                        <%= animal.getWeight()%> kg
+                    </p>
+                </div>
+            </div>
+
+            <p class="text-gray-700 leading-relaxed mb-6 whitespace-pre-line">
+                <%= animal.getDescription()%>
+            </p>
+
         </div>
     </body>
 </html>
